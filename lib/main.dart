@@ -59,7 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      dm.awaitDb();
+      dm.getBudgets().then((budgets) {
+        print("-- Begin Budgets --");
+        for (var budget in budgets) {
+          print(budget.toString());
+        }
+        print("-- End Budgets --");
+      });
     });
   }
 
