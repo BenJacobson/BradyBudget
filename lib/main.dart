@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'data/data_manager.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -47,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final DataManager dm = DataManager();
 
   void _incrementCounter() {
     setState(() {
@@ -56,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      dm.awaitDb();
     });
   }
 
