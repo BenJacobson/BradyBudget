@@ -1,3 +1,4 @@
+import 'package:brady_budget/data/database/budget_category.dart';
 import 'package:brady_budget/data/model/budget_category.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,12 +12,11 @@ void main() {
       );
 
       BudgetCategory resultBudgetCategory =
-          BudgetCategory.fromRawBudgetCategory(
-              budgetCategory.toRawBudgetCategory());
+          fromRawBudgetCategory(toRawBudgetCategory(budgetCategory));
 
-      expect(resultBudgetCategory.budgetId, resultBudgetCategory.budgetId);
-      expect(resultBudgetCategory.categoryId, resultBudgetCategory.categoryId);
-      expect(resultBudgetCategory.cents, resultBudgetCategory.cents);
+      expect(resultBudgetCategory.budgetId, budgetCategory.budgetId);
+      expect(resultBudgetCategory.categoryId, budgetCategory.categoryId);
+      expect(resultBudgetCategory.cents, budgetCategory.cents);
     });
   });
 }

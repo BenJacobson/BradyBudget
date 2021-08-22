@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'data/data_manager.dart';
+import 'data/model/budget.dart';
+import 'data/model/date.dart';
 
 void main() {
   runApp(MyApp());
@@ -59,13 +61,28 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      dm.getBudgets().then((budgets) {
+      (() async {
+        dm.insertBudget(Budget(
+          budgetId: -1,
+          cents: 100,
+          startDate: Date(
+            year: 2021,
+            month: 1,
+            day: 1,
+          ),
+          endDate: Date(
+            year: 2021,
+            month: 12,
+            day: 31,
+          ),
+        ));
+        List<Budget> budgets = await dm.getAllBudgets();
         print("-- Begin Budgets --");
         for (var budget in budgets) {
           print(budget.toString());
         }
         print("-- End Budgets --");
-      });
+      })();
     });
   }
 

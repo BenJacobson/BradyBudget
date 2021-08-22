@@ -1,3 +1,4 @@
+import 'package:brady_budget/data/database/date.dart';
 import 'package:brady_budget/data/model/date.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,7 +11,7 @@ void main() {
         day: 17,
       );
 
-      Date resultDate = Date.fromInt(date.toInt());
+      Date resultDate = fromRawDate(toRawDate(date));
 
       expect(resultDate.year, date.year);
       expect(resultDate.month, date.month);

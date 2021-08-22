@@ -1,3 +1,5 @@
+import 'package:brady_budget/data/database/date.dart';
+import 'package:brady_budget/data/database/transaction.dart';
 import 'package:brady_budget/data/model/date.dart';
 import 'package:brady_budget/data/model/transaction.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,13 +20,13 @@ void main() {
       );
 
       Transaction resultTransaction =
-          Transaction.fromRawTransaction(transaction.toRawTransaction());
+          fromRawTransaction(toRawTransaction(transaction));
 
-      expect(resultTransaction.transactionId, resultTransaction.transactionId);
-      expect(resultTransaction.categoryId, resultTransaction.categoryId);
-      expect(resultTransaction.cents, resultTransaction.cents);
-      expect(resultTransaction.date.toInt(), resultTransaction.date.toInt());
-      expect(resultTransaction.name, resultTransaction.name);
+      expect(resultTransaction.transactionId, transaction.transactionId);
+      expect(resultTransaction.categoryId, transaction.categoryId);
+      expect(resultTransaction.cents, transaction.cents);
+      expect(toRawDate(resultTransaction.date), toRawDate(transaction.date));
+      expect(resultTransaction.name, transaction.name);
     });
   });
 }

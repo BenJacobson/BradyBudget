@@ -1,3 +1,4 @@
+import 'package:brady_budget/data/database/category.dart';
 import 'package:brady_budget/data/model/category.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,11 +10,10 @@ void main() {
         name: "My category name",
       );
 
-      Category resultCategory =
-          Category.fromRawCategory(category.toRawCategory());
+      Category resultCategory = fromRawCategory(toRawCategory(category));
 
-      expect(resultCategory.categoryId, resultCategory.categoryId);
-      expect(resultCategory.name, resultCategory.name);
+      expect(resultCategory.categoryId, category.categoryId);
+      expect(resultCategory.name, category.name);
     });
   });
 }
