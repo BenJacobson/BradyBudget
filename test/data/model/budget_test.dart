@@ -20,7 +20,7 @@ void main() {
         ),
       );
 
-      Budget resultBudget = Budget.fromRawBudget(budget.toMap());
+      Budget resultBudget = Budget.fromRawBudget(budget.toRawBudget());
 
       expect(resultBudget.budgetId, budget.budgetId);
       expect(resultBudget.cents, budget.cents);

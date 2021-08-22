@@ -31,6 +31,8 @@ class DataManager {
     var db = await _getDb();
     List<Map<String, dynamic>> rawBudgets =
         await db.rawQuery(selectAllBudgets());
-    return rawBudgets.map(Budget.fromRawBudget).toList();
+    return rawBudgets
+        .map((rawBudget) => Budget.fromRawBudget(rawBudget))
+        .toList();
   }
 }

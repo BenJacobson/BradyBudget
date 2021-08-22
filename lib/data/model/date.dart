@@ -4,7 +4,17 @@
 ///   month 1-12, 4 bits
 ///   year 0-2^22-1, 22 bits
 class Date {
-  static fromInt(int packedDate) {
+  final int year;
+  final int month;
+  final int day;
+
+  const Date({
+    required this.year,
+    required this.month,
+    required this.day,
+  });
+
+  factory Date.fromInt(int packedDate) {
     int day = packedDate & 0x1f;
     packedDate >>= 5;
 
@@ -19,16 +29,6 @@ class Date {
       day: day,
     );
   }
-
-  final int year;
-  final int month;
-  final int day;
-
-  const Date({
-    required this.year,
-    required this.month,
-    required this.day,
-  });
 
   int toInt() {
     int val = 0;
