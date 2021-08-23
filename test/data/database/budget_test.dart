@@ -20,6 +20,7 @@ void main() {
           month: 1,
           day: 1,
         ),
+        name: '',
       );
 
       Budget resultBudget = fromRawBudget(toRawBudget(budget));
@@ -28,6 +29,7 @@ void main() {
       expect(resultBudget.cents, budget.cents);
       expect(toRawDate(resultBudget.startDate), toRawDate(budget.startDate));
       expect(toRawDate(resultBudget.endDate), toRawDate(budget.endDate));
+      expect(resultBudget.name, budget.name);
     });
   });
 }

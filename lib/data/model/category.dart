@@ -1,9 +1,9 @@
 class Category {
-  final int categoryId;
+  final int? categoryId;
   final String name;
 
   const Category({
-    required this.categoryId,
+    this.categoryId,
     required this.name,
   });
 

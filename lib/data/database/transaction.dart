@@ -4,7 +4,7 @@ import '/data/model/date.dart';
 import '/data/model/transaction.dart';
 import 'date.dart';
 
-Future<void> createTableTransaction(Database db) {
+Future<void> createTableTransaction(DatabaseExecutor db) {
   return db.execute('''
     CREATE TABLE transaction_data(
       transaction_id INTEGER PRIMARY KEY,
@@ -15,6 +15,52 @@ Future<void> createTableTransaction(Database db) {
       FOREIGN KEY (category_id)
         REFERENCES category (category_id) 
     );''');
+}
+
+Future<List<Transaction>> selectAllTransactions(DatabaseExecutor db) async {
+  List<Map<String, dynamic>> rawTransactions = await db.query(
+    'transactions',
+    columns: [
+      'transaction_id',
+      'category_id',
+      'cents',
+      'date',
+      'name',
+    ],
+  );
+  return rawTransactions.map(fromRawTransaction).toList();
+}
+
+Future<Transaction> insertNewTransaction(
+    DatabaseExecutor db, Transaction transaction) {
+  if (transaction.transactionId != null) {
+    throw ArgumentError('insertNewTransaction transactionId must be null');
+  }
+  return _insertTransaction(db, transaction);
+}
+
+Future<Transaction> updateTransaction(
+    DatabaseExecutor db, Transaction transaction) {
+  if (transaction.transactionId == null) {
+    throw ArgumentError('updateTransaction transactionId must not be null');
+  }
+  return _insertTransaction(db, transaction);
+}
+
+Future<Transaction> _insertTransaction(
+    DatabaseExecutor db, Transaction transaction) async {
+  int transactionId = await db.insert(
+    'transaction',
+    toRawTransaction(transaction),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+  return Transaction(
+    transactionId: transactionId,
+    categoryId: transaction.categoryId,
+    cents: transaction.cents,
+    date: transaction.date,
+    name: transaction.name,
+  );
 }
 
 Transaction fromRawTransaction(Map<String, dynamic> rawTransaction) {

@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '/data/model/budget_category.dart';
 
-Future<void> createTableBudgetCategory(Database db) {
+Future<void> createTableBudgetCategory(DatabaseExecutor db) {
   return db.execute('''
     CREATE TABLE budget_category(
       budget_id INTEGER NOT NULL,
@@ -13,6 +13,29 @@ Future<void> createTableBudgetCategory(Database db) {
       FOREIGN KEY (category_id)
         REFERENCES category (category_id) 
     );''');
+}
+
+Future<List<BudgetCategory>> selectAllBudgetCategories(
+    DatabaseExecutor db) async {
+  List<Map<String, dynamic>> rawBudgetCategories = await db.query(
+    'budget_category',
+    columns: [
+      'budget_id',
+      'category_id',
+      'cents',
+    ],
+  );
+  return rawBudgetCategories.map(fromRawBudgetCategory).toList();
+}
+
+Future<BudgetCategory> insertBudgetCategory(
+    DatabaseExecutor db, BudgetCategory budgetCategory) async {
+  await db.insert(
+    'budget_category',
+    toRawBudgetCategory(budgetCategory),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+  return budgetCategory;
 }
 
 BudgetCategory fromRawBudgetCategory(Map<String, dynamic> rawBudgetCategory) {
