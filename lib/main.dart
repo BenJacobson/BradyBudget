@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'data/data_manager.dart';
-import 'data/model/category.dart';
+import '/data/data_manager.dart';
+import '/data/model/category.dart';
+import '/debug/test_data.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +32,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key) {
+    createTestData(dm);
+  }
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -43,6 +46,7 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final DataManager dm = DataManager();
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -50,7 +54,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  final DataManager dm = DataManager();
 
   void _incrementCounter() {
     setState(() {
@@ -61,11 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
       (() async {
-        await dm.insertNewCategory(Category(
-          categoryId: null,
-          name: "Test Category",
-        ));
-        List<Category> categories = await dm.getAllCategories();
+        List<Category> categories = await widget.dm.getAllCategories();
         print("-- Begin Categories --");
         for (var category in categories) {
           print(category.toString());

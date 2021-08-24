@@ -19,7 +19,7 @@ Future<void> createTableTransaction(DatabaseExecutor db) {
 
 Future<List<Transaction>> selectAllTransactions(DatabaseExecutor db) async {
   List<Map<String, dynamic>> rawTransactions = await db.query(
-    'transactions',
+    'transaction_data',
     columns: [
       'transaction_id',
       'category_id',
@@ -50,7 +50,7 @@ Future<Transaction> updateTransaction(
 Future<Transaction> _insertTransaction(
     DatabaseExecutor db, Transaction transaction) async {
   int transactionId = await db.insert(
-    'transaction',
+    'transaction_data',
     toRawTransaction(transaction),
     conflictAlgorithm: ConflictAlgorithm.replace,
   );

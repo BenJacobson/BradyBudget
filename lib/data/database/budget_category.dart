@@ -9,7 +9,7 @@ Future<void> createTableBudgetCategory(DatabaseExecutor db) {
       category_id INTEGER NOT NULL,
       cents INTEGER NOT NULL,
       FOREIGN KEY (budget_id)
-        REFERENCES budget (category_id),
+        REFERENCES budget (budget_id),
       FOREIGN KEY (category_id)
         REFERENCES category (category_id) 
     );''');
@@ -28,7 +28,17 @@ Future<List<BudgetCategory>> selectAllBudgetCategories(
   return rawBudgetCategories.map(fromRawBudgetCategory).toList();
 }
 
-Future<BudgetCategory> insertBudgetCategory(
+Future<BudgetCategory> insertNewBudgetCategory(
+    DatabaseExecutor db, BudgetCategory budgetCategory) {
+  return _insertBudgetCategory(db, budgetCategory);
+}
+
+Future<BudgetCategory> updateBudgetCategory(
+    DatabaseExecutor db, BudgetCategory budgetCategory) {
+  return _insertBudgetCategory(db, budgetCategory);
+}
+
+Future<BudgetCategory> _insertBudgetCategory(
     DatabaseExecutor db, BudgetCategory budgetCategory) async {
   await db.insert(
     'budget_category',
