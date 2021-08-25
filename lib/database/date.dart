@@ -1,11 +1,11 @@
-import '/data/model/date.dart';
+part of database;
 
 /// Dates can be serialized into an integer:
 ///   day 1-31, 5 bits
 ///   month 1-12, 4 bits
 ///   year 0-2^22-1, 22 bits
 
-Date fromRawDate(int rawDate) {
+Date _fromRawDate(int rawDate) {
   int day = rawDate & 0x1f;
   rawDate >>= 5;
 
@@ -21,7 +21,7 @@ Date fromRawDate(int rawDate) {
   );
 }
 
-int toRawDate(Date date) {
+int _toRawDate(Date date) {
   int rawDate = 0;
 
   rawDate += date.year;

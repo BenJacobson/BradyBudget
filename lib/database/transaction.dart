@@ -1,10 +1,6 @@
-import 'package:sqflite/sqflite.dart' hide Transaction;
+part of database;
 
-import '/data/model/date.dart';
-import '/data/model/transaction.dart';
-import 'date.dart';
-
-Future<void> createTableTransaction(DatabaseExecutor db) {
+Future<void> _createTableTransaction(DatabaseExecutor db) {
   return db.execute('''
     CREATE TABLE transaction_data(
       transaction_id INTEGER PRIMARY KEY,
@@ -17,7 +13,7 @@ Future<void> createTableTransaction(DatabaseExecutor db) {
     );''');
 }
 
-Future<List<Transaction>> selectAllTransactions(DatabaseExecutor db) async {
+Future<List<Transaction>> _selectAllTransactions(DatabaseExecutor db) async {
   List<Map<String, dynamic>> rawTransactions = await db.query(
     'transaction_data',
     columns: [
@@ -28,10 +24,10 @@ Future<List<Transaction>> selectAllTransactions(DatabaseExecutor db) async {
       'name',
     ],
   );
-  return rawTransactions.map(fromRawTransaction).toList();
+  return rawTransactions.map(_fromRawTransaction).toList();
 }
 
-Future<Transaction> insertNewTransaction(
+Future<Transaction> _insertNewTransaction(
     DatabaseExecutor db, Transaction transaction) {
   if (transaction.transactionId != null) {
     throw ArgumentError('insertNewTransaction transactionId must be null');
@@ -39,7 +35,7 @@ Future<Transaction> insertNewTransaction(
   return _insertTransaction(db, transaction);
 }
 
-Future<Transaction> updateTransaction(
+Future<Transaction> _updateTransaction(
     DatabaseExecutor db, Transaction transaction) {
   if (transaction.transactionId == null) {
     throw ArgumentError('updateTransaction transactionId must not be null');
@@ -51,7 +47,7 @@ Future<Transaction> _insertTransaction(
     DatabaseExecutor db, Transaction transaction) async {
   int transactionId = await db.insert(
     'transaction_data',
-    toRawTransaction(transaction),
+    _toRawTransaction(transaction),
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
   return Transaction(
@@ -63,11 +59,11 @@ Future<Transaction> _insertTransaction(
   );
 }
 
-Transaction fromRawTransaction(Map<String, dynamic> rawTransaction) {
+Transaction _fromRawTransaction(Map<String, dynamic> rawTransaction) {
   int transactionId = rawTransaction['transaction_id'];
   int categoryId = rawTransaction['category_id'];
   int cents = rawTransaction['cents'];
-  Date date = fromRawDate(rawTransaction['date']);
+  Date date = _fromRawDate(rawTransaction['date']);
   String name = rawTransaction['name'];
 
   return Transaction(
@@ -79,12 +75,12 @@ Transaction fromRawTransaction(Map<String, dynamic> rawTransaction) {
   );
 }
 
-Map<String, dynamic> toRawTransaction(Transaction transaction) {
+Map<String, dynamic> _toRawTransaction(Transaction transaction) {
   return {
     'transaction_id': transaction.transactionId,
     'category_id': transaction.categoryId,
     'cents': transaction.cents,
-    'date': toRawDate(transaction.date),
+    'date': _toRawDate(transaction.date),
     'name': transaction.name,
   };
 }

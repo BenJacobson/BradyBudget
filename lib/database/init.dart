@@ -1,10 +1,4 @@
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-
-import 'budget.dart';
-import 'budget_category.dart';
-import 'category.dart';
-import 'transaction.dart';
+part of database;
 
 Future<Database>? _db;
 
@@ -20,10 +14,10 @@ Future<Database> _initDatabase() async {
       await _configureDatabase(db);
     },
     onCreate: (Database db, int version) async {
-      await createTableBudget(db);
-      await createTableCategory(db);
-      await createTableBudgetCategory(db);
-      await createTableTransaction(db);
+      await _createTableBudget(db);
+      await _createTableCategory(db);
+      await _createTableBudgetCategory(db);
+      await _createTableTransaction(db);
     },
     version: 1,
   );

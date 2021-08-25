@@ -1,8 +1,8 @@
-import '/data/data_manager.dart';
-import '/data/model/exports.dart';
+import '/database/lib.dart';
+import '/object/exports.dart';
 
-Future<void> createTestData(DataManager dataManager) async {
-  Budget budget = await dataManager.insertNewBudget(Budget(
+Future<void> createTestData(DatabaseAccessObject dao) async {
+  Budget budget = await dao.insertNewBudget(Budget(
     cents: 10000,
     startDate: Date(
       year: 2021,
@@ -17,27 +17,27 @@ Future<void> createTestData(DataManager dataManager) async {
     name: "January 2021",
   ));
 
-  Category categoryWants = await dataManager.insertNewCategory(Category(
+  Category categoryWants = await dao.insertNewCategory(Category(
     name: "Wants",
   ));
 
-  Category categoryNeeds = await dataManager.insertNewCategory(Category(
+  Category categoryNeeds = await dao.insertNewCategory(Category(
     name: "Needs",
   ));
 
-  await dataManager.insertNewBudgetCategory(BudgetCategory(
+  await dao.insertNewBudgetCategory(BudgetCategory(
     budgetId: budget.budgetId!,
     categoryId: categoryWants.categoryId!,
     cents: 5000,
   ));
 
-  await dataManager.insertNewBudgetCategory(BudgetCategory(
+  await dao.insertNewBudgetCategory(BudgetCategory(
     budgetId: budget.budgetId!,
     categoryId: categoryNeeds.categoryId!,
     cents: 5000,
   ));
 
-  await dataManager.insertNewTransaction(
+  await dao.insertNewTransaction(
     Transaction(
         categoryId: categoryWants.categoryId,
         cents: 1000,
@@ -49,7 +49,7 @@ Future<void> createTestData(DataManager dataManager) async {
         name: "Ice cream"),
   );
 
-  await dataManager.insertNewTransaction(
+  await dao.insertNewTransaction(
     Transaction(
         categoryId: categoryNeeds.categoryId,
         cents: 3000,
@@ -61,7 +61,7 @@ Future<void> createTestData(DataManager dataManager) async {
         name: "Water bill"),
   );
 
-  await dataManager.insertNewTransaction(
+  await dao.insertNewTransaction(
     Transaction(
         categoryId: categoryWants.categoryId,
         cents: 99999999,

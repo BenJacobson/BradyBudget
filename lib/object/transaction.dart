@@ -1,4 +1,4 @@
-import '/data/model/date.dart';
+import '/object/date.dart';
 
 class Transaction {
   final int? transactionId;

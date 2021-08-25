@@ -1,8 +1,6 @@
-import 'package:sqflite/sqflite.dart';
+part of database;
 
-import '/data/model/budget_category.dart';
-
-Future<void> createTableBudgetCategory(DatabaseExecutor db) {
+Future<void> _createTableBudgetCategory(DatabaseExecutor db) {
   return db.execute('''
     CREATE TABLE budget_category(
       budget_id INTEGER NOT NULL,
@@ -15,7 +13,7 @@ Future<void> createTableBudgetCategory(DatabaseExecutor db) {
     );''');
 }
 
-Future<List<BudgetCategory>> selectAllBudgetCategories(
+Future<List<BudgetCategory>> _selectAllBudgetCategories(
     DatabaseExecutor db) async {
   List<Map<String, dynamic>> rawBudgetCategories = await db.query(
     'budget_category',
@@ -25,15 +23,15 @@ Future<List<BudgetCategory>> selectAllBudgetCategories(
       'cents',
     ],
   );
-  return rawBudgetCategories.map(fromRawBudgetCategory).toList();
+  return rawBudgetCategories.map(_fromRawBudgetCategory).toList();
 }
 
-Future<BudgetCategory> insertNewBudgetCategory(
+Future<BudgetCategory> _insertNewBudgetCategory(
     DatabaseExecutor db, BudgetCategory budgetCategory) {
   return _insertBudgetCategory(db, budgetCategory);
 }
 
-Future<BudgetCategory> updateBudgetCategory(
+Future<BudgetCategory> _updateBudgetCategory(
     DatabaseExecutor db, BudgetCategory budgetCategory) {
   return _insertBudgetCategory(db, budgetCategory);
 }
@@ -42,13 +40,13 @@ Future<BudgetCategory> _insertBudgetCategory(
     DatabaseExecutor db, BudgetCategory budgetCategory) async {
   await db.insert(
     'budget_category',
-    toRawBudgetCategory(budgetCategory),
+    _toRawBudgetCategory(budgetCategory),
     conflictAlgorithm: ConflictAlgorithm.replace,
   );
   return budgetCategory;
 }
 
-BudgetCategory fromRawBudgetCategory(Map<String, dynamic> rawBudgetCategory) {
+BudgetCategory _fromRawBudgetCategory(Map<String, dynamic> rawBudgetCategory) {
   int budgetId = rawBudgetCategory['budget_id'];
   int categoryId = rawBudgetCategory['category_id'];
   int cents = rawBudgetCategory['cents'];
@@ -60,7 +58,7 @@ BudgetCategory fromRawBudgetCategory(Map<String, dynamic> rawBudgetCategory) {
   );
 }
 
-Map<String, dynamic> toRawBudgetCategory(BudgetCategory budgetCategory) {
+Map<String, dynamic> _toRawBudgetCategory(BudgetCategory budgetCategory) {
   return {
     'budget_id': budgetCategory.budgetId,
     'category_id': budgetCategory.categoryId,
