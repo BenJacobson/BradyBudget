@@ -1,8 +1,8 @@
 import 'package:brady_budget/database/lib.dart';
 import 'package:flutter/foundation.dart' hide Category;
 
+import '/data_model/lib.dart';
 import '/debug/test_data.dart';
-import '/object/exports.dart';
 
 class BudgetsModel extends ChangeNotifier {
   final Map<int, Budget> _budgets = Map();
@@ -48,6 +48,10 @@ class BudgetsModel extends ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  int get budgetsLength {
+    return _budgets.length;
   }
 
   List<Budget> getBudgets() {

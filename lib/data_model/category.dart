@@ -1,3 +1,5 @@
+part of data_model;
+
 class Category {
   final int? categoryId;
   final String name;

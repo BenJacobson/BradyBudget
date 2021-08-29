@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart' hide Transaction;
 
-import '/object/exports.dart';
+import '/data_model/lib.dart';
 
 part 'budget.dart';
 part 'budget_category.dart';

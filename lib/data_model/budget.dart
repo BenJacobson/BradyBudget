@@ -1,4 +1,4 @@
-import '/object/date.dart';
+part of data_model;
 
 class Budget {
   final int? budgetId;

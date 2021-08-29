@@ -1,3 +1,5 @@
+part of data_model;
+
 class BudgetCategory {
   final int budgetId;
   final int categoryId;

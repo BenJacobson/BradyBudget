@@ -1,3 +1,5 @@
+part of data_model;
+
 class Date {
   final int year;
   final int month;

@@ -1,5 +1,5 @@
+import '/data_model/lib.dart';
 import '/database/lib.dart';
-import '/object/exports.dart';
 
 Future<void> createTestData(DatabaseAccessObject dao) async {
   Budget budget = await dao.insertNewBudget(Budget(
