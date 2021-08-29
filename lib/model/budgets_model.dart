@@ -57,4 +57,12 @@ class BudgetsModel extends ChangeNotifier {
   List<Budget> getBudgets() {
     return _budgets.values.toList();
   }
+
+  int get transactionsLength {
+    return _transactions.length;
+  }
+
+  List<Transaction> getTransactions() {
+    return _transactions.values.toList();
+  }
 }

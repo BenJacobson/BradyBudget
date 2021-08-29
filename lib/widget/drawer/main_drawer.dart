@@ -19,7 +19,7 @@ class MainDrawer extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.contain,
               child: Text(
-                'Drawer Header',
+                'Brady Budget',
                 style: TextStyle(
                   color: Colors.white,
                 ),
