@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '/view/budgets_view.dart';
+import '/view/goals_view.dart';
+import '/view/sources_view.dart';
+import '/view/transactions_view.dart';
+
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,25 +29,45 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             title: Text('Budgets'),
             onTap: () {
-              print('Drawer budgets');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BudgetsView(),
+                ),
+              );
             },
           ),
           ListTile(
             title: Text('Transactions'),
             onTap: () {
-              print('Drawer transactions');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TransactionsView(),
+                ),
+              );
             },
           ),
           ListTile(
             title: Text('Goals'),
             onTap: () {
-              print('Drawer goals');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GoalsView(),
+                ),
+              );
             },
           ),
           ListTile(
             title: Text('Sources'),
             onTap: () {
-              print('Drawer sources');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SourcesView(),
+                ),
+              );
             },
           ),
           Expanded(
