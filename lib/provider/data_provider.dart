@@ -1,21 +1,18 @@
 import 'package:brady_budget/database/lib.dart';
 import 'package:flutter/foundation.dart' hide Category;
 
-import '/data_model/lib.dart';
 import '/debug/test_data.dart';
+import '/model/lib.dart';
 
-class BudgetsModel extends ChangeNotifier {
+class DataProvider extends ChangeNotifier {
   final Map<int, Budget> _budgets = Map();
   final Map<int, Map<int, BudgetCategory>> _budgetCategories = Map();
   final Map<int, Category> _categories = Map();
   final Map<int, Transaction> _transactions = Map();
   final DatabaseAccessObject _dao = DatabaseAccessObject();
 
-  BudgetsModel() {
-    (() async {
-      await createTestData(_dao);
-      await this.sync();
-    })();
+  DataProvider() {
+    createTestData(_dao).then((_) => this.sync());
   }
 
   Future<void> sync() async {
@@ -50,16 +47,17 @@ class BudgetsModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get budgetsLength {
-    return _budgets.length;
-  }
-
   List<Budget> getBudgets() {
     return _budgets.values.toList();
   }
 
-  int get transactionsLength {
-    return _transactions.length;
+  List<Category> getCategoriesForBudget(Budget budget) {
+    Map<int, BudgetCategory> budgetCategories =
+        _budgetCategories[budget.budgetId] ?? Map();
+    return budgetCategories.keys
+        .map((budgetCategoryId) => _categories[budgetCategoryId])
+        .whereType<Category>()
+        .toList();
   }
 
   List<Transaction> getTransactions() {

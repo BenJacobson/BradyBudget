@@ -1,5 +1,5 @@
-import '/data_model/lib.dart';
 import '/database/lib.dart';
+import '/model/lib.dart';
 
 Future<void> createTestData(DatabaseAccessObject dao) async {
   await dao.deleteAll();

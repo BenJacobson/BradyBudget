@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/model/budgets_model.dart';
+import '/model/lib.dart';
+import '/provider/data_provider.dart';
+import '/view/budget_view.dart';
 import '/widget/drawer/main_drawer.dart';
 
 class BudgetsView extends StatelessWidget {
@@ -13,14 +15,21 @@ class BudgetsView extends StatelessWidget {
       ),
       drawer: MainDrawer(),
       body: Center(
-        child: Consumer<BudgetsModel>(builder: (context, budgetsModel, child) {
+        child: Consumer<DataProvider>(builder: (context, dataProvider, child) {
+          List<Budget> budgets = dataProvider.getBudgets();
           return ListView.builder(
-            itemCount: budgetsModel.budgetsLength,
+            itemCount: budgets.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(budgetsModel.getBudgets()[index].name),
+                title: Text(budgets[index].name),
                 onTap: () {
                   print("Tap $index");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BudgetView(budgets[index]),
+                    ),
+                  );
                 },
               );
             },

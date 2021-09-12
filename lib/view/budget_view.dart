@@ -5,22 +5,27 @@ import '/model/lib.dart';
 import '/provider/data_provider.dart';
 import '/widget/drawer/main_drawer.dart';
 
-class TransactionsView extends StatelessWidget {
+class BudgetView extends StatelessWidget {
+  final budget;
+
+  BudgetView(this.budget);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transactions'),
+        title: Text(this.budget.name),
       ),
       drawer: MainDrawer(),
       body: Center(
         child: Consumer<DataProvider>(builder: (context, dataProvider, child) {
-          List<Transaction> transactions = dataProvider.getTransactions();
+          List<Category> categories =
+              dataProvider.getCategoriesForBudget(budget);
           return ListView.builder(
-            itemCount: transactions.length,
+            itemCount: categories.length,
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
-                title: Text(transactions[index].name),
+                title: Text(categories[index].name),
                 onTap: () {
                   print("Tap $index");
                 },

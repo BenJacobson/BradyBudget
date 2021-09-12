@@ -84,9 +84,9 @@ class DatabaseAccessObject {
   }
 
   Future<void> deleteAll() async {
-    await deleteAllBudgets();
+    await deleteAllTransactions();
     await deleteAllBudgetCategories();
     await deleteAllCategories();
-    await deleteAllTransactions();
+    await deleteAllBudgets();
   }
 }

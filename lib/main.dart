@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/model/budgets_model.dart';
+import '/provider/data_provider.dart';
 import '/view/budgets_view.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => BudgetsModel(),
+      create: (context) => DataProvider(),
       child: MaterialApp(
         title: 'Brady Budget',
         theme: ThemeData(
