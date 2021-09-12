@@ -46,6 +46,10 @@ Future<BudgetCategory> _insertBudgetCategory(
   return budgetCategory;
 }
 
+Future<void> _deleteAllBudgetCategories(DatabaseExecutor db) async {
+  await db.delete('budget_category');
+}
+
 BudgetCategory _fromRawBudgetCategory(Map<String, dynamic> rawBudgetCategory) {
   int budgetId = rawBudgetCategory['budget_id'];
   int categoryId = rawBudgetCategory['category_id'];

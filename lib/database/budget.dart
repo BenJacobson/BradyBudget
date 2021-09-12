@@ -50,6 +50,10 @@ Future<Budget> _insertBudget(DatabaseExecutor db, Budget budget) async {
   return _fromRawBudget(rawBudget);
 }
 
+Future<void> _deleteAllBudgets(DatabaseExecutor db) async {
+  await db.delete('budget');
+}
+
 Budget _fromRawBudget(Map<String, dynamic> rawBudget) {
   int? budgetId = rawBudget['budget_id'];
   int cents = rawBudget['cents'];

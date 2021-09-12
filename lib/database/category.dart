@@ -45,6 +45,10 @@ Future<Category> _insertCategory(DatabaseExecutor db, Category category) async {
   );
 }
 
+Future<void> _deleteAllCategories(DatabaseExecutor db) async {
+  await db.delete('category');
+}
+
 Category _fromRawCategory(Map<String, dynamic> rawCategory) {
   int? categoryId = rawCategory['category_id'];
   String name = rawCategory['name'];

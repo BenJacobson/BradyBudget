@@ -75,6 +75,10 @@ Transaction _fromRawTransaction(Map<String, dynamic> rawTransaction) {
   );
 }
 
+Future<void> _deleteAllTransactions(DatabaseExecutor db) async {
+  await db.delete('transaction_data');
+}
+
 Map<String, dynamic> _toRawTransaction(Transaction transaction) {
   return {
     'transaction_id': transaction.transactionId,

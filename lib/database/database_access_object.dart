@@ -16,6 +16,11 @@ class DatabaseAccessObject {
     return _selectAllBudgets(db);
   }
 
+  Future<void> deleteAllBudgets() async {
+    final db = await getDb();
+    return _deleteAllBudgets(db);
+  }
+
   Future<BudgetCategory> insertNewBudgetCategory(
       BudgetCategory budgetCategory) async {
     final db = await getDb();
@@ -33,6 +38,11 @@ class DatabaseAccessObject {
     return _selectAllBudgetCategories(db);
   }
 
+  Future<void> deleteAllBudgetCategories() async {
+    final db = await getDb();
+    return _deleteAllBudgetCategories(db);
+  }
+
   Future<Category> insertNewCategory(Category category) async {
     final db = await getDb();
     return _insertNewCategory(db, category);
@@ -48,6 +58,11 @@ class DatabaseAccessObject {
     return _selectAllCategories(db);
   }
 
+  Future<void> deleteAllCategories() async {
+    final db = await getDb();
+    return _deleteAllCategories(db);
+  }
+
   Future<Transaction> insertNewTransaction(Transaction transaction) async {
     final db = await getDb();
     return _insertNewTransaction(db, transaction);
@@ -61,5 +76,17 @@ class DatabaseAccessObject {
   Future<List<Transaction>> getAllTransactions() async {
     final db = await getDb();
     return _selectAllTransactions(db);
+  }
+
+  Future<void> deleteAllTransactions() async {
+    final db = await getDb();
+    return _deleteAllTransactions(db);
+  }
+
+  Future<void> deleteAll() async {
+    await deleteAllBudgets();
+    await deleteAllBudgetCategories();
+    await deleteAllCategories();
+    await deleteAllTransactions();
   }
 }

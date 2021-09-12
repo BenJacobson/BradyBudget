@@ -2,6 +2,8 @@ import '/data_model/lib.dart';
 import '/database/lib.dart';
 
 Future<void> createTestData(DatabaseAccessObject dao) async {
+  await dao.deleteAll();
+
   Budget budget = await dao.insertNewBudget(Budget(
     cents: 10000,
     startDate: Date(
